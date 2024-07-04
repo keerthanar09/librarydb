@@ -133,6 +133,28 @@ def addstudent(request):
         new_stu.save()
     return render(request, "library/addstudent.html")
 
+def check(request):
+    global s_usn
+    if request.method == "POST":
+        m=sql.connect(host="localhost", user="root", passwd="chatterbox123", database="library")
+        cursor=m.cursor()
+        d = request.POST
+        for key, value in d.items():
+            if key == "username":
+                username = value
+            if key == "password":
+                password = value
+
+        c = "select * from borrow_info where s_usn = '{}' and return_status = 'Not Returned'".format(username, password)
+        cursor.execute(c)
+        t=tuple(cursor.fetchall())
+        if t==():
+            return render(request, "library/error.html")
+        else:
+            return render(request, "library/admin.html")
+        
+    return render(request, "library/login.html")
+
 def addborrow(request):
     if request.method == "POST":
         s_usn = request.POST['usn']
