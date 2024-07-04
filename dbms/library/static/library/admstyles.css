@@ -1,0 +1,217 @@
+/*CSS file for ADMIN page of the library database management system.*/
+
+* {
+    margin: 0px;
+    padding: 5px;
+    
+}
+body{
+    background-image: url("Books-1.webp");
+}
+h1{
+    color:antiquewhite;
+}
+
+#main{
+    opacity:1;
+    background-color: rgb(0, 0, 0);
+    background: rgba(12, 12, 12, 0.5);
+
+    color: antiquewhite;
+}
+
+.container {
+    border: 1px solid grey;
+    margin: 20px;
+
+}
+
+#add{
+    padding: 5px;
+    font-size: 15px;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    color: #fff;
+    background-color: #306f94;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 5px #999;
+    width:100px ;
+}
+#add:hover {background-color: #265471}
+
+#add:active {
+  background-color: #669fc8;
+  box-shadow: 0 5px #acd6f4;
+  transform: translateY(4px);
+}
+
+.container button {
+    border-radius: 4px;
+    background-color: rgba(67, 125, 173, 0.6);
+    border: none;
+    color: aliceblue;
+    text-align: center;
+    font-size: 28px;
+    padding: 40px;
+    width: 250px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+  
+.button span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+}
+  
+.button:hover span {
+    padding-right: 25px;
+}
+  
+.button:hover span:after {
+    opacity: 1;
+    right: 0;
+}
+
+.overlay {
+    height: 0%;
+    width: 100%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0, 0.9);
+    overflow-y: hidden;
+    transition: 0.5s;
+}
+  
+.overlay-content {
+    position: relative;
+    top: 25%;
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+}
+  
+.overlay a {
+    padding: 8px;
+    text-decoration: none;
+    font-size: 36px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+  
+.overlay a:hover, .overlay a:focus {
+    color: #f1f1f1;
+}
+  
+.overlay .closebtn {
+    position: absolute;
+    top: 20px;
+    right: 45px;
+    font-size: 60px;
+}
+
+#tab_1, #tab_2{
+    background-color: aliceblue;
+    border:3px solid black;
+    width: 380px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#tab_3, #tab_4{
+    background-color:aliceblue;
+    border:3px solid black;
+    width:650px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+#tab_5{
+    background-color:aliceblue;
+    border:3px solid black;
+    width:650px;
+    text-align: center;
+}
+#tab_6{
+    background-color:aliceblue;
+    border:3px solid black;
+    width: 400px;
+    text-align: center;
+   
+}
+#tab_5, #tab_6{
+    display: inline-block;
+}
+.table, .table td{
+    border:3px solid black;
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+    color: black;
+
+    
+}
+.table1{
+    background-color: rgb(220, 237, 251);
+    font-size: 15px;
+}
+#attributes{
+    background-color: rgb(93, 119, 141);
+    color: black;
+    font-size: 30px;
+}
+[data-tab-info] {
+    display: none;
+}
+
+.active[data-tab-info] {
+    display: block;
+}
+.tab-content {
+    margin-top: 1rem;
+    padding-left: 1rem;
+    font-size: 20px;
+    font-family: sans-serif;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+}
+
+.tabs {
+    border-bottom: 1px solid grey;
+    background-color:  rgb(125, 159, 197);
+    font-size: 25px;
+    color: rgb(0, 0, 0);
+    display: flex;
+    margin: 0;
+}
+
+.tabs span {
+    background:  rgb(125, 159, 197);
+    padding: 10px;
+    border: 1px solid rgb(255, 255, 255);
+} 
+
+.tabs span:hover {
+    background:  rgb(58, 103, 156);
+    cursor: pointer;
+    color: black;
+}

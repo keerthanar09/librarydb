@@ -1,0 +1,21 @@
+<!--Layout template for admin routes-->
+
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>admin page</title>
+        <link rel= "stylesheet" href="{% static 'library/admstyles.css' %}">
+    </head>   
+    <body>
+        <div id = "main">
+            <center><h1>LIBRARY ADMIN PAGE</h1></center>
+            <center><p>...Admin page for admins...</p></center>
+            <div class="container">
+                {% block body %}
+                {% endblock %}
+            </div>
+        </div>
+    </body>
+</html>

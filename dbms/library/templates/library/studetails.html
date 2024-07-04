@@ -1,0 +1,38 @@
+<!--List of students in the database, visible to only admins. -->
+{% extends "library/layout.html" %}
+{% block body %}
+
+
+Click here to add a new student:<a href = "addstudent"><button id = "add">+Student</button></a>
+<div class = "table1">
+    <table class="table">
+        <tr id = "attributes">
+            <td>Sl.no.</td>
+            <td>USN</td>
+            <td>Student Name</td>
+            <td>Age</td>
+            <td>Branch</td>
+            <td>Semester</td>
+            <td>Library card no. 1</td>
+            <td>Library card no. 2</td>
+            <td>Phone number</td>
+            <td>Password</td>
+        </tr>
+        {% for s in students %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{s.s_usn}}</td>
+            <td>{{s.student_name}}</td>
+            <td>{{s.age}}</td>
+            <td>{{s.branch}}</td>
+            <td>{{s.sem}}</td>
+            <td>{{s.lib_card_no_1}}</td>
+            <td>{{s.lib_card_no_2}}</td>
+            <td>{{s.phno}}</td>
+            <td>{{s.spassword}}</td>
+        </tr>
+        {%endfor%}
+    </table>
+    </div>
+
+{% endblock %}

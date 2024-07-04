@@ -1,0 +1,44 @@
+<!--List of borrower's details in the database, visible to both students and admins. -->
+
+{% extends "library/layout.html" %}
+{% block body %}
+
+Click here to add a new borrow record:<a href = "addborrow"><button id = "add">+add</button></a>
+Click here to add a new borrow record for journal/magazine:<a href = "addborjm"><button id = "add">+add</button></a><br>
+Click here to update an existing record<a href = "updborrow"><button id = "add">+update</button></a>
+<div class = "table1">
+    <table class="table">
+        <tr id = "attributes">
+            <td>Sl.no.</td>
+            <td>Trans. ID</td>
+            <td>Student USN</td>
+            <td>Library card no.</td>
+            <td>Student name</td>
+            <td>ISBN/ISSN</td>
+            <td>Issue date</td>
+            <td>Due date</td>
+            <td>Admin ID</td>
+            <td>Other book ID</td>
+            <td>Regular Book ID</td>
+            <td>Return status</td>
+        </tr>
+        {%for bo in borrow%}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{bo.trans_id}}</td>
+            <td>{{bo.s_usn}}</td>
+            <td>{{bo.lcard}}</td>
+            <td>{{bo.sname}}</td>
+            <td>{{bo.isbn_or_issn}}</td>
+            <td>{{bo.issue_date}}</td>
+            <td>{{bo.due_date}}</td>
+            <td>{{bo.admin}}</td>
+            <td>{{bo.ob}}</td>
+            <td>{{bo.b}}</td>
+            <td>{{bo.return_status}}</td>
+        </tr>
+        {%endfor%}
+    </table>
+    </div>
+
+{% endblock %}

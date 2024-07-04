@@ -1,0 +1,106 @@
+/*CSS file for MAIN page of the library database management system*/
+
+*{
+    margin: 0px;
+    padding: 10px;
+}
+body {
+    background-image: url("Books-1.webp");
+  }
+#main{
+    opacity:1;
+    background-color: rgb(0, 0, 0);
+    background: rgba(0, 0, 0, 0.5);
+    height: 100vh;
+}
+h2{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color:beige;
+    text-align: center;
+}
+p{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: antiquewhite;
+    text-align: center;
+}
+#tab_1 h1{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 85px;
+    font-weight: 500;
+    color: antiquewhite;
+    opacity: 1;
+}
+#tab_1{
+    background-color: rgba(72, 123, 168, 0.5);
+    text-align: center;
+    font-size: large;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+
+#tab_2, #tab_3{
+    background-color: aliceblue;
+    border:3px solid black;
+    width: 380px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.tabs__tab{
+    background-color: rgba(108, 180, 243, 0.5);
+    text-align: center;
+    font-size: large;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+#quote{
+    background-color: rgba(117, 168, 255, 0.5);
+    border-color: black;
+    padding: 5px;
+    margin: 10px;
+    text-align: center;
+}
+
+.container {
+    border: 1px solid grey;
+}
+
+[data-tab-info] {
+    display: none;
+}
+
+.active[data-tab-info] {
+    display: block;
+}
+.tab-content {
+    margin-top: 1rem;
+    padding-left: 1rem;
+    font-size: 20px;
+    font-family: sans-serif;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+}
+
+.tabs {
+    border-bottom: 1px solid grey;
+    background-color:  rgba(0, 0, 0, 0);
+    font-size: 25px;
+    color: rgb(0, 0, 0);
+    display: flex;
+    
+}
+
+.tabs span {
+    background:  rgb(68, 115, 168,0.9);
+    padding: 10px;
+    border: 1px solid rgb(255, 255, 255);
+} 
+
+.tabs span:hover {
+    background:  rgb(14, 45, 81);
+    cursor: pointer;
+    color: black;
+}
+
+

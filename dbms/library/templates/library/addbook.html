@@ -1,0 +1,41 @@
+{% extends "library/layout.html" %}
+{% block body %}
+
+<div class="tab-content">
+    <div class="tabs__tab active" id="tab_1" data-tab-info>
+        <p>Enter book details here.</p>
+        <form action = "" method = "POST">{%csrf_token%}
+            <table>
+                <tr>
+                    <td>ISBN: </td>
+                    <td><input type = "text" placeholder="ISBN" name = "isbn"></td>
+                </tr>
+                <tr>
+                    <td>Book ID: </td>
+                    <td><input type = "text" placeholder = "bookid" name = "bookid"></td>
+                </tr>
+                <tr>
+                    <td>New book title:  </td>
+                    <td><input type = "text" placeholder="Book Name" name = "title"></td>
+                </tr>
+                <tr>
+                    <td>Book Authors: </td>
+                    <td><input type = "text" placeholder = "Author Name" name = "authors"></td>
+                </tr>
+                <tr>
+                    <td>Rack number:  </td>
+                    <td><input type = "number" placeholder = "Rack no." name = "rack"></td>
+                </tr>
+                <tr>
+                    <td>Book category: </td>
+                    <td><input type = "text" placeholder="category" name = "category"></td>
+                </tr>
+                <tr>
+                    <td><input type = "submit" placeholder="SUBMIT" name = "submit"></td>
+                </tr>     
+            </table>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

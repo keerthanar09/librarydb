@@ -1,0 +1,25 @@
+{% extends "library/layout.html" %}
+{% block body %}
+
+<div class="tab-content">
+    <div class = "tabs__tab active" id = "tab_3" data-tab-info>
+        Update return status here: 
+        <form>
+            <table>
+                <tr>
+                    <td>Enter Book ID: </td>
+                    <td><input type = "number" placeholder = "Book ID" name = "sbid"></td>
+                </tr>
+                <tr>
+                    <td>Enter return status: </td>
+                    <td><input type = "text" placeholder="return status" name = "ureturn"></td>
+                </tr>
+                <tr>
+                    <td><input type = "submit" placeholder = "submit" name = "Submit"></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

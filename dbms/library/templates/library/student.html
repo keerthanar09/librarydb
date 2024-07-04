@@ -1,0 +1,12 @@
+<!--Student login page-->
+<!--This page will accept the student usn and will display their details, and have another
+tab to check book details and be able to filter/sort/search the list of books-->
+{% extends "library/layout2.html" %}
+{% block body %}
+            <h1>WELCOME STUDENT!</h1>
+                <button class="button"><span>Go to profile</span></button>
+                <a href = "booksstu"><button class="button"><span>Books!</span></button></a>
+                <a href = "trending"><button class="button"><span>Trending Books</span></button></a>
+                <button class="button"><span>Trending category</span></button>
+
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "library/layout.html" %}
+{% block body %}
+
+<div class="tab-content">
+    <div class="tabs__tab active" id="tab_3" data-tab-info>
+        <p>Enter New journal/magazine: </p>
+        <form action = "" method="POST">{%csrf_token%}
+            <table>
+                <tr>
+                    <td>Journal/Magazine ID: </td>
+                    <td><input type = "number" placeholder = "ID" name = "ob_id"></td>
+                    <td>ISSN:  </td>
+                    <td><input type = "text" placeholder="issn" name = "issn"></td>
+                </tr>
+                    <td>Book type:  </td>
+                    <td><input type = "text" placeholder = "type" name = "type"></td>
+                    <td>Issue date: </td>
+                    <td><input type = "text" placeholder = "issue date" name = "issue"></td>
+                </tr>
+                <tr>
+                     <td>Title: </td>
+                     <td><input type = "text" placeholder="title" name = "title"></td>
+                     <td>Authors: </td>
+                     <td><input type = "text" placeholder="authors" name = "authors"></td>
+                </tr>
+
+                <tr>
+                    <td>Category: </td>
+                    <td><input type = "text" placeholder = "category" name = "category"></td>
+
+                    <td>Rack No.: </td>
+                    <td><input type = "number" placeholder = "rack no." name = "rack"></td>
+                </tr>
+                <tr>
+                    <td><input type = "submit" placeholder="SUBMIT"></td>
+                </tr>     
+            </table>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

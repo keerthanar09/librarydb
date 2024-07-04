@@ -1,0 +1,29 @@
+{% extends "library/layout.html" %}
+{% block body %}
+
+<div class = "table1">
+    <table class="table">
+        <tr id = "attributes">
+            <td>Sl.no.</td>
+            <td>ISBN</td>
+            <td>Book ID</td>
+            <td>Title</td>
+            <td>Authors</td>
+            <td>Rack Number</td>
+            <td>Book Category</td>
+        </tr>
+        {% for book in books %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{book.isbn}}</td>
+            <td>{{book.book_id}}</td>
+            <td>{{book.title}}</td>
+            <td>{{book.authors}}</td>
+            <td>{{book.rack_no}}</td>
+            <td>{{book.categoty}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    </div>
+
+{% endblock %}
