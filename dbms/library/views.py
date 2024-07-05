@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import mysql.connector as sql
 from django.http import HttpResponse
 from .models import Student, AdminInfo, BookInfo, OtherBooks, BorrowInfo
@@ -147,10 +147,30 @@ def check(request):
             or (b.lcard = s.Lib_card_no_2 and return_status = 'Not Returned'));'''.format(s_usn))
         count = len(borrow)
         if count == 0 or count == 1:
-            return render(request, "library/addborrow.html")
+            return redirect('addborrow')
         else:
             return render(request, "library/Cannotborrow.html", {'usn':s_usn, 'borrow':borrow})
     return render(request, "library/check.html")
+
+def checkjm(request):
+    global s_usn
+    if request.method == "POST":
+        d = request.POST
+        for key, value in d.items():
+            if key == "s_usn":
+                s_usn = value
+        borrow = BorrowInfo.objects.raw('''select trans_id, b.s_usn, b.return_status, b.lcard, b.due_date 
+            from borrow_info b, student s 
+            where b.s_usn = '{}' and  (s.s_usn = b.s_usn 
+			and (b.lcard = s.Lib_card_no_1 and return_status = 'Not Returned')
+            or (b.lcard = s.Lib_card_no_2 and return_status = 'Not Returned'));'''.format(s_usn))
+        count = len(borrow)
+        if count == 0 or count == 1:
+            return redirect('addborjm')
+        else:
+            return render(request, "library/Cannotborrow.html", {'usn':s_usn, 'borrow':borrow})
+    return render(request, "library/checkjm.html")
+
 
 def addborrow(request):
     if request.method == "POST":
