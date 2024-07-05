@@ -1,0 +1,27 @@
+{% extends "library/layout.html" %}
+{% block body %}
+
+<h1>Student with usn {{usn}} cannot borrow a book.</h1>
+<div class = "table1">
+    <table class="table">
+        <tr id = "attributes">
+            <td>Sl.no.</td>
+            <td>Student USN</td>
+            <td>Return Status</td>
+            <td>Library card</td>
+            <td>Due date</td>
+        </tr>
+        {% for b in borrow %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{b.s_usn}}</td>
+            <td>{{b.return_status}}</td>
+            <td>{{b.lcard}}</td>
+            <td>{{b.due_date}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    </div>
+<a href = "">Click here to try again</a>
+
+{%endblock%}
