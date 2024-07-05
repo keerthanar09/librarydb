@@ -136,24 +136,21 @@ def addstudent(request):
 def check(request):
     global s_usn
     if request.method == "POST":
-        m=sql.connect(host="localhost", user="root", passwd="chatterbox123", database="library")
-        cursor=m.cursor()
         d = request.POST
         for key, value in d.items():
-            if key == "username":
-                username = value
-            if key == "password":
-                password = value
-
-        c = "select * from borrow_info where s_usn = '{}' and return_status = 'Not Returned'".format(username, password)
-        cursor.execute(c)
-        t=tuple(cursor.fetchall())
-        if t==():
-            return render(request, "library/error.html")
+            if key == "s_usn":
+                s_usn = value
+        borrow = BorrowInfo.objects.raw('''select trans_id, b.s_usn, b.return_status, b.lcard, b.due_date 
+            from borrow_info b, student s 
+            where b.s_usn = '{}' and  (s.s_usn = b.s_usn 
+			and (b.lcard = s.Lib_card_no_1 and return_status = 'Not Returned')
+            or (b.lcard = s.Lib_card_no_2 and return_status = 'Not Returned'));'''.format(s_usn))
+        count = len(borrow)
+        if count == 0 or count == 1:
+            return render(request, "library/addborrow.html")
         else:
-            return render(request, "library/admin.html")
-        
-    return render(request, "library/login.html")
+            return render(request, "library/Cannotborrow.html", {'usn':s_usn, 'borrow':borrow})
+    return render(request, "library/check.html")
 
 def addborrow(request):
     if request.method == "POST":
