@@ -4,21 +4,32 @@
 <div class="tab-content">
     <div class = "tabs__tab active" id = "tab_3" data-tab-info>
         Update return status here: 
-        <form>
-            <table>
-                <tr>
-                    <td>Enter Book ID: </td>
-                    <td><input type = "number" placeholder = "Book ID" name = "sbid"></td>
-                </tr>
-                <tr>
-                    <td>Enter return status: </td>
-                    <td><input type = "text" placeholder="return status" name = "ureturn"></td>
-                </tr>
-                <tr>
-                    <td><input type = "submit" placeholder = "submit" name = "Submit"></td>
-                </tr>
-            </table>
+        <form method = 'POST'>
+            {%csrf_token%}
+            {{form.as_p}}
+            <input type = "submit" placeholder="Submit">
         </form>
+        {% if result %}
+            {% if result == "No student found with this USN..." %}
+                <p>{{ result }}</p>
+            {% else %}
+                <h2>Books Not Returned: </h2>
+                <ul>
+                    {% for book in result %}
+                        <li>
+                            Transaction ID: {{book.trans_id}}<br>
+                            Book ISBN: {{ book.isbn_or_issn }} <br>
+                            Borrowed with library card {{book.lcard}}<br>
+                            <form method="post" style="display:inline;">
+                                {% csrf_token %}
+                                <input type="hidden" name="trans_id" value="{{ book.trans_id }}">
+                                <button id = "regular_button" type="submit" name="return_book">Mark as Returned</button>
+                            </form>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endif %}
     </div>
 </div>
 

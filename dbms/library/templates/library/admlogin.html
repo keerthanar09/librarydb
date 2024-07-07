@@ -1,0 +1,77 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+        <title>LIBRARY MANAGEMENT</title>
+        <link href="{% static 'library/styles.css' %}" rel = "stylesheet">
+        
+    </head> 
+    <body>
+        <div id = main>
+        <h2>COLLEGE LIBRARY SYSTEM</h2>  
+        <div class = "container">
+            <div class="tabs">
+                <span data-tab-value="#tab_1">Home</span>
+                <span data-tab-value="#tab_3">Admin login</span>
+                <span data-tab-value="#tab_4">Timings and contacts</span>
+            </div>
+            <div id = "quote"><p>"A book is a gift that you can open again and again." -Garrison Keillor</p></div>
+                <div class="tab-content">
+                    <div class="tabs__tab active" id="tab_1" data-tab-info>
+                        <h1>COLLEGE LIBRARY SYSTEM</h1>
+                        <h3>Welcome to the college library website!</h3>
+                        <h3>Login as an admin to proceed.</h3>
+                        <p>If you are a student, </p><a href = "stulogin">login here</a>
+                    </div>
+                    
+                    <div class="tabs__tab" id="tab_3" data-tab-info>
+                        {% if error_message %}
+                            <p style = "color:red;">{{error_message}}</p>
+                        {% endif %}
+                        LOGIN AS ADMIN:
+                        <form action = "{%url 'admlogin'%}" method = "POST"> {%csrf_token%}
+                            <table>
+                                <tr>
+                                    <td>Username: </td>
+                                    <td><input type = "text" placeholder="username" name = "username"></td>
+                                </tr>
+                                <tr>
+                                    <td>Password: </td>
+                                    <td><input type="password" placeholder="password" name = "password"></td>
+                                </tr>
+                                <tr><td><input type = "submit" placeholder = "SUBMIT"></td></tr>
+                            </table>          
+                        </form>
+                    </div>
+                    <div class = "tabs__tab" id="tab_4" data-tab-info>
+                        <h3>Library Timings</h3>
+                        <ul>
+                            <li>Monday-Friday<br>9 am to 9 pm</li>
+                            <li>Saturday and Sunday<br>8 am to 4 pm</li>
+                            <li>During holidays, Library will be closed</li>
+                        </ul>
+                        <h3>Contact Info</h3>
+                        <p>Phone number : +91 8123700951</p>
+                    </div>
+                    
+                </div>
+            </div>   
+        </div>
+        <script type="text/javascript">
+            const tabs = document.querySelectorAll('[data-tab-value]')
+            const tabInfos = document.querySelectorAll('[data-tab-info]')
+     
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const target = document
+                        .querySelector(tab.dataset.tabValue);
+                    tabInfos.forEach(tabInfo => {
+                        tabInfo.classList.remove('active')
+                    })
+                    target.classList.add('active');
+                })
+            })
+        </script>
+    </body>
+</html>

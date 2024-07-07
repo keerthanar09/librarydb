@@ -11,7 +11,9 @@ body{
 h1{
     color:antiquewhite;
 }
-
+#cbtext{
+    color:black;
+}
 #main{
     opacity:1;
     background-color: rgb(0, 0, 0);
@@ -46,7 +48,27 @@ h1{
   box-shadow: 0 5px #acd6f4;
   transform: translateY(4px);
 }
-
+@media all and (max-width:768px){
+    table,tr, td, tbody, table table{
+        width:100%!important;
+        float:left;
+        clear:both;
+        display:block;
+        text-align:center;
+    }
+    table img {
+        max-width:100%;
+        height:auto;
+    }
+}
+.table{
+    width: 95%; 
+    overflow-y: hidden;
+    overflow-x: auto; 
+    background-color:rgb(229, 243, 255); 
+    height: auto;
+    padding: 5px;
+}
 .container button {
     border-radius: 4px;
     background-color: rgba(67, 125, 173, 0.6);
@@ -126,7 +148,19 @@ h1{
     right: 45px;
     font-size: 60px;
 }
-
+#regular_button{
+    border-radius: 4px;
+    background-color: rgba(0, 64, 116, 0.6);
+    border: none;
+    color: aliceblue;
+    text-align: center;
+    font-size: 20px;
+    padding: 5px;
+    width: 100px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+}
 #tab_1, #tab_2{
     background-color: aliceblue;
     border:3px solid black;

@@ -1,0 +1,12 @@
+{% extends "library/layout.html" %}
+{% block body %}
+
+<div id = "tab_1">
+    <h1 id = "cbtext">The given USN ({{usn}}) does not exist in the database.</h1>
+    <a href = "check">Click here to try again</a>
+    <p id = 'cbtext'>Is it a new student?</p>
+    <p id= "cbtext">Click here to add a new student:</p><a href = "addstudent"><button id = "add">+Student</button></a>
+</div>
+
+
+{%endblock%}

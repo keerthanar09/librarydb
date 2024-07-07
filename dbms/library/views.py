@@ -1,37 +1,17 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse
 import mysql.connector as sql
 from django.http import HttpResponse
 from .models import Student, AdminInfo, BookInfo, OtherBooks, BorrowInfo
 from .filters import bookfilter
+from .forms import *
+from django.contrib.auth.hashers import check_password
 s_usn = ''
 spassword = ''
 username = ''
 password = ''
-#login for admins
-def index(request):
-    global username, password
-    if request.method == "POST":
-        m=sql.connect(host="localhost", user="root", passwd="chatterbox123", database="library")
-        cursor=m.cursor()
-        d = request.POST
-        for key, value in d.items():
-            if key == "username":
-                username = value
-            if key == "password":
-                password = value
-
-        c = "select * from admin_info where adm_name = '{}' and adm_password = '{}'".format(username, password)
-        cursor.execute(c)
-        t=tuple(cursor.fetchall())
-        if t==():
-            return render(request, "library/error.html")
-        else:
-            return render(request, "library/admin.html")
-        
-    return render(request, "library/login.html")
-
-#login for students
-def login2(request):
+#login for students.
+def student_login(request):
     global s_usn, spassword
     if request.method == "POST":
         m=sql.connect(host="localhost", user="root", passwd="chatterbox123", database="library")
@@ -47,14 +27,36 @@ def login2(request):
         cursor.execute(c)
         t=tuple(cursor.fetchall())
         if t==():
-            return render(request, "library/error.html")
+            return render(request, "library/errors/error.html")
         else:
             return render(request, "library/student.html")
         
-    return render(request, "library/login2.html")
-    
+    return render(request, "library/stulogin.html") 
+
+
+#login for admins
+def admin_login(request):
+    global username, password
+    if request.method == "POST":
+        m=sql.connect(host="localhost", user="root", passwd="chatterbox123", database="library")
+        cursor=m.cursor()
+        d = request.POST
+        for key, value in d.items():
+            if key == "username":
+                username = value
+            if key == "password":
+                password = value
+
+        c = "select * from admin_info where adm_name = '{}' and adm_password = '{}'".format(username, password)
+        cursor.execute(c)
+        t=tuple(cursor.fetchall())
+        if t==():
+            return render(request, "library/errors/error.html")
+        else:
+            return render(request, "library/admin.html")
         
-            
+    return render(request, "library/admlogin.html")
+ 
 # Create your views here.
 
 def admin(request):
@@ -64,11 +66,26 @@ def student(request):
     return render(request, "library/student.html")
 
 def booklist(request):
-    books = BookInfo.objects.raw("(select  book_id, isbn, title, authors, rack_no, categoty from book_info) UNION (select ob_id, issn, title, authors, rack_no, category from other_books);")
-    myfilter = bookfilter()
+    books = BookInfo.objects.raw("(select  book_id, isbn, title, authors, rack_no, categoty, 'Regular' as book_type from book_info) UNION (select ob_id, issn, title, authors, rack_no, category, ob_type from other_books);")
+    
+    '''form = BookSearchForm(request.GET or None)
+
+    if form.is_valid():
+        query = form.cleaned_data.get('query')
+        author = form.cleaned_data.get('author')
+        category = form.cleaned_data.get('category')
+        isbn = form.cleaned_data.get('isbn')
+        if query:
+            books = books.filter(title__icontains=query)
+        if author:
+            books = books.filter(authors__icontains=author)
+        if category:
+            books = books.filter(category__icontains=category)
+        if isbn:
+            books = books.filter(isbn__icontains=isbn)'''
     context = {
         'books': books,
-        'myfilter': myfilter
+       # 'form' : form,
     }
     
     return render(request, "library/booklist.html", context)
@@ -140,37 +157,36 @@ def check(request):
         for key, value in d.items():
             if key == "s_usn":
                 s_usn = value
+        #To check if the student is eligibe to borrow a book.
         borrow = BorrowInfo.objects.raw('''select trans_id, b.s_usn, b.return_status, b.lcard, b.due_date 
             from borrow_info b, student s 
             where b.s_usn = '{}' and  (s.s_usn = b.s_usn 
 			and (b.lcard = s.Lib_card_no_1 and return_status = 'Not Returned')
             or (b.lcard = s.Lib_card_no_2 and return_status = 'Not Returned'));'''.format(s_usn))
+        #To check for free library cards for students who can borrow a book.
+        free = BorrowInfo.objects.raw('''(SELECT MIN(b1.trans_id) AS trans_id, s.Lib_card_no_1 as library_card, s.s_usn
+                                        from library.student s
+                                        left join library.borrow_info b1
+                                        on s.s_usn = b1.s_usn and s.Lib_card_no_1 = b1.lcard
+                                        where s.s_usn = '{}' and (b1.lcard is null or b1.return_status = 'Returned'))
+                                        union
+                                        (SELECT MIN(b2.trans_id) AS trans_id, s.Lib_card_no_2 as library_card, s.s_usn
+                                        from library.student s
+                                        left join library.borrow_info b2
+                                        on s.s_usn = b2.s_usn and s.Lib_card_no_2 = b2.lcard
+                                        where s.s_usn = '{}' and (b2.lcard is null or b2.return_status = 'Returned'));'''.format(s_usn, s_usn))
+        student_usns = [student.s_usn for student in Student.objects.raw("select s_usn from student") ]
+        
         count = len(borrow)
-        if count == 0 or count == 1:
-            return redirect('addborrow')
-        else:
-            return render(request, "library/Cannotborrow.html", {'usn':s_usn, 'borrow':borrow})
+        if s_usn in student_usns:
+            if count == 0 or count == 1:
+                return render(request, "library/canborrow.html", {'usn':s_usn, 'free':free})
+            else:
+                return render(request, "library/Cannotborrow.html", {'usn':s_usn, 'borrow':borrow})
+        else: 
+            return render(request, "library/errors/doesnotexist.html", {'usn':s_usn})
+
     return render(request, "library/check.html")
-
-def checkjm(request):
-    global s_usn
-    if request.method == "POST":
-        d = request.POST
-        for key, value in d.items():
-            if key == "s_usn":
-                s_usn = value
-        borrow = BorrowInfo.objects.raw('''select trans_id, b.s_usn, b.return_status, b.lcard, b.due_date 
-            from borrow_info b, student s 
-            where b.s_usn = '{}' and  (s.s_usn = b.s_usn 
-			and (b.lcard = s.Lib_card_no_1 and return_status = 'Not Returned')
-            or (b.lcard = s.Lib_card_no_2 and return_status = 'Not Returned'));'''.format(s_usn))
-        count = len(borrow)
-        if count == 0 or count == 1:
-            return redirect('addborjm')
-        else:
-            return render(request, "library/Cannotborrow.html", {'usn':s_usn, 'borrow':borrow})
-    return render(request, "library/checkjm.html")
-
 
 def addborrow(request):
     if request.method == "POST":
@@ -188,7 +204,7 @@ def addborrow(request):
                             admin = AdminInfo.objects.get(aid = admin), 
                             b = BookInfo.objects.get(book_id = b), return_status = return_status)
         new_bor.save()
-
+        return redirect('borrow')
 
     return render(request, "library/addborrow.html")
 
@@ -208,11 +224,33 @@ def addborjm(request):
                             admin = AdminInfo.objects.get(aid = admin), 
                             ob = OtherBooks.objects.get(ob_id = ob), return_status = return_status)
         new_bor.save()
+        return redirect('borrow')
 
     return render(request, "library/addborjm.html")
 
 def updborrow(request):
-    return render(request, "library/updborrow.html")
+    result = None
+    if request.method == 'POST':
+        form = Inputform(request.POST)
+        if form.is_valid():
+            s_usn = form.cleaned_data['s_usn']
+            try:
+                student = Student.objects.get(s_usn = s_usn)
+                not_returned = BorrowInfo.objects.filter(s_usn = student, return_status = 'Not Returned')
+                result = not_returned
+            except Student.DoesNotExist:
+                result = "No student found with this USN..."
+        elif 'return_book' in request.POST:
+            trans_id = request.POST.get('trans_id')
+            book = get_object_or_404(BorrowInfo, trans_id=trans_id)
+            book.return_status = 'Returned'
+            book.save()
+            return redirect(reverse('updborrow'))
+    else:
+        form = Inputform()
+        
+
+    return render(request, "library/updborrow.html", {'form': form, 'result':result})
 
 def trending(request):
     

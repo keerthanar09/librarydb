@@ -1,0 +1,24 @@
+{% extends "library/layout.html" %}
+{% block body %}
+
+<h1>Student with usn {{usn}} can borrow a book using the following library card numbers:</h1>
+<div class = "table1">
+    <table class="table">
+        <tr id = "attributes">
+            <td>Sl.no.</td>
+            <td>Student USN</td>
+            <td>Library card</td>
+        </tr>
+        {% for f in free %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{f.s_usn}}</td>
+            <td>{{f.library_card}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <p id = 'cbtext'>Click here to proceed for a regular book:</p><a href = "addborrow"><button id = "add">+ Add regular</button></a>
+    <p id = 'cbtext'>Click here to proceed for a Journal/magazine:</p><a href = "addborjm"><button id = "add">+ Add others</button></a>
+</div>
+
+{%endblock%}
