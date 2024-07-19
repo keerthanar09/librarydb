@@ -1,0 +1,30 @@
+{% extends "library/complex/layouttable.html" %}
+
+{%block title%}
+<center><h1>BOOKS AVAILABILITY</h1></center>
+<center><p>~~Availability details of books, journals and magazine~~</p></center>
+{%endblock%}
+
+{% block body %}
+
+<tr id = "attributes">
+    <td>Sl.no.</td>
+    <td>ISBN</td>
+    <td>Title</td>
+    <td>Total copies</td>
+    <td>Borrowed copies</td>
+    <td>Available copies</td>
+</tr>
+{% for a in avail %}
+<tr>
+    <td>{{forloop.counter}}</td>
+    <td>{{a.isbn}}</td>
+    <td>{{a.title}}</td>
+    <td>{{a.total_copies}}</td>
+    <td>{{a.borrowed_copies}}</td>
+    <Td>{{a.available_copies}}</Td>
+
+</tr>
+{% endfor %}
+
+{% endblock %}

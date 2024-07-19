@@ -3,11 +3,10 @@
 {% extends "library/layout.html" %}
 {% block body %}
                 <a href = "trending"><button class="button"><span>Trending Books</span></button></a>
-                <button class="button"><span>Trending category</span></button>
-                <button class="button"><span>Unused books</span></button>
-                <button class="button"><span>Borrowers Past Due</span></button>
-                <button class="button"><span>Books Availability</span></button>
-                <button class="button"><span>Fine  History</span></button>
+                <a href = "unused"><button class="button"><span>Unused books</span></button></a>
+                <a href = "pastdue"><button class="button"><span>Borrowers Past Due</span></button></a>
+                <a href ="avail"><button class="button"><span>Books Availability</span></button></a>
+                <a href = "regular"><button class="button"><span>Regular Borrowers</span></button></a>
                 <div id="myNav" class="overlay">
                     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
                     <div class="overlay-content">

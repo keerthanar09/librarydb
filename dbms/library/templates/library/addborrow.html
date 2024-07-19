@@ -1,3 +1,4 @@
+<!--Form to add borrow details for regular books-->
 {% extends "library/layout.html" %}
 {% block body %}
 
@@ -13,9 +14,9 @@
                     <td><input type = "number" placeholder="libcard" name = "libcard" required></td>
                 </tr>
                     <td>Borrower's Name:  </td>
-                    <td><input type = "text" placeholder = "name" name = "name"></td>
-                    <td>ISBN/ISSN: </td>
-                    <td><input type = "text" placeholder = "isbn" name = "isbn"></td>
+                    <td><input type = "text" placeholder = "name" name = "name" required></td>
+                    <td>ISBN: </td>
+                    <td><input type = "text" placeholder = "isbn" name = "isbn" required></td>
                 </tr>
                 <tr>
                      <td>Book ID(regular): </td>

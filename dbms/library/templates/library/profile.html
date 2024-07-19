@@ -1,0 +1,20 @@
+{% extends "library/layout2.html" %}
+{% block body %}
+<div id = "tab_3">
+    <h1 id= "cbtext" style = "text-align: left;">USN: {{s_usn}}</h1>
+    <h3 id = "cbtext" style = "text-align: left;">Borrowed books:</h3> 
+    {%for s in detail%}
+    <div id = "tab_1">
+    <ul style="color:black;font-size: 30px;text-align: left;">
+        <li>Transaction: {{s.trans_id}}</li>
+        <li>Issue Date: {{s.issue_date}}</li>
+        <li>Due Date: {{s.due_date}}</li>
+        <li>Library card: {{s.lcard}}</li>
+        <li>Book id(regular):{{s.b_id}}</li>
+        <li>Book id(others): {{s.ob_id}}</li>
+    </ul>
+    </div>
+    {%endfor%}
+
+</div>
+{% endblock %}

@@ -3,10 +3,10 @@
 tab to check book details and be able to filter/sort/search the list of books-->
 {% extends "library/layout2.html" %}
 {% block body %}
-            <h1>WELCOME STUDENT!</h1>
-                <button class="button"><span>Go to profile</span></button>
+            <h1>WELCOME {{student_name}}!</h1>
+                <a href = "profile"><button class="button"><span>Go to profile</span></button></a>
                 <a href = "booksstu"><button class="button"><span>Books!</span></button></a>
                 <a href = "trending"><button class="button"><span>Trending Books</span></button></a>
-                <button class="button"><span>Trending category</span></button>
+                <a href = "unused"><button class="button"><span>Hidden Gems</span></button></a>
 
 {% endblock %}

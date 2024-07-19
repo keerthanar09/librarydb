@@ -1,0 +1,25 @@
+{% extends "library/complex/layouttable.html" %}
+{%block title%}
+<center><h1>FREQUENT BORROWERS</h1></center>
+<center><p>~~The 5 most frequent borrowers~~</p></center>
+{%endblock%}
+{% block body %}
+
+<tr id = "attributes">
+    <td>Sl.no.</td>
+    <td>Student name</td>
+    <td>USN</td>
+    <td>Number of books Borrowed</td>
+
+</tr>
+{% for s in regular %}
+<tr>
+    <td>{{forloop.counter}}</td>
+    <td>{{s.student_name}}</td>
+    <td>{{s.s_usn}}</td>
+    <td>{{s.total_borrowed}}</td>
+
+</tr>
+{% endfor %}
+
+{% endblock %}

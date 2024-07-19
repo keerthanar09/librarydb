@@ -28,7 +28,7 @@ class AdminInfo(models.Model):
         db_table = 'admin_info'
 
 class BookInfo(models.Model):
-    isbn = models.CharField(max_length=20, blank=True, null=True)
+    isbn = models.CharField(max_length=50, blank=True, null=True)
     book_id = models.IntegerField(primary_key=True)
     title = models.CharField(max_length=100)
     authors = models.CharField(max_length=100, blank=True, null=True)
@@ -41,12 +41,12 @@ class BookInfo(models.Model):
 
 class OtherBooks(models.Model):
     ob_id = models.IntegerField(primary_key=True)
-    issn = models.CharField(max_length=20, blank=True, null=True)
-    ob_type = models.CharField(max_length=20, blank=True, null=True)
+    issn = models.CharField(max_length=50, blank=True, null=True)
+    ob_type = models.CharField(max_length=100, blank=True, null=True)
     issue_date = models.DateField(blank=True, null=True)
     title = models.CharField(max_length=100, blank=True, null=True)
     authors = models.CharField(max_length=100, blank=True, null=True)
-    category = models.CharField(max_length=50, blank=True, null=True)
+    category = models.CharField(max_length=100, blank=True, null=True)
     rack_no = models.IntegerField(blank=True, null=True)
 
     class Meta:
@@ -54,17 +54,17 @@ class OtherBooks(models.Model):
         db_table = 'other_books'
 
 class BorrowInfo(models.Model):
-    s_usn = models.ForeignKey('Student', models.DO_NOTHING, db_column='s_usn')
-    lcard = models.IntegerField(db_column='Lcard')  # Field name made lowercase.
+    trans_id = models.AutoField(primary_key=True)
+    s_usn = models.ForeignKey('Student', models.DO_NOTHING, db_column='s_usn', blank=True, null=True)
+    lcard = models.IntegerField(db_column='Lcard', blank=True, null=True)  # Field name made lowercase.
     sname = models.CharField(max_length=50, blank=True, null=True)
     isbn_or_issn = models.CharField(max_length=20, blank=True, null=True)
     issue_date = models.DateField(blank=True, null=True)
     due_date = models.DateField(blank=True, null=True)
+    return_status = models.CharField(max_length=20, blank=True, null=True)
     admin = models.ForeignKey(AdminInfo, models.DO_NOTHING, blank=True, null=True)
     ob = models.ForeignKey('OtherBooks', models.DO_NOTHING, blank=True, null=True)
     b = models.ForeignKey(BookInfo, models.DO_NOTHING, blank=True, null=True)
-    trans_id = models.AutoField(primary_key=True)
-    return_status = models.CharField(max_length=10, blank=True, null=True)
 
     class Meta:
         managed = False

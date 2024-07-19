@@ -1,0 +1,22 @@
+{% extends "library/complex/layouttable.html" %}
+{%block title%}
+<center><h1>HIDDEN GEMS</h1></center>
+<center><p>~~Books that haven't been borrowed for over 5 months~~</p></center>
+{%endblock%}
+{% block body %}
+
+<tr id = "attributes">
+    <td>Sl.no.</td>
+    <td>Title</td>
+    <td>ISBN/ISSN</td>
+
+</tr>
+{% for u in unused %}
+<tr>
+    <td>{{forloop.counter}}</td>
+    <td>{{u.title}}</td>
+    <td>{{u.isbn}}</td>
+</tr>
+{% endfor %}
+
+{% endblock %}

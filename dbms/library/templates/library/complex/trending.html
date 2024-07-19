@@ -1,0 +1,34 @@
+<!--Displays the top 10 most frequently borrowed books of all time-->
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Trending books</title>
+        <link rel= "stylesheet" href="{% static 'library/admstyles.css' %}">
+    </head>   
+    <body>
+        <div id = "main">
+            <center><h1>TRENDING BOOKS</h1></center>
+            <center><p>~~Our most popular books of all time~~</p></center>
+            <div class="container">
+                <div class = "table1">
+                    <table class="table">
+                        <tr id = "attributes">
+                            <td>Sl.no.</td>
+                            <td>Title</td>
+                            <td>Number of times borrowed</td>
+                        </tr>
+                        {% for book in books %}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{book.title}}</td>
+                            <td>{{book.borrow_count}}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    </div>
+            </div>
+        </div>
+    </body>
+</html>

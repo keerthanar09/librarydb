@@ -1,0 +1,25 @@
+{% extends "library/complex/layouttable.html" %}
+{%block title%}
+<center><h1>STUDENTS PAST DUE</h1></center>
+<center><p>~~Details of students who haven't returned borrowed books, and the fine payable by them~~</p></center>
+{%endblock%}
+{% block body %}
+
+<tr id = "attributes">
+    <td>Sl.no.</td>
+    <td>Student Name</td>
+    <td>Student USN</td>
+    <td>Days Overdue</td>
+    <td>Fine to be paid</td>
+</tr>
+{% for s in stu_pastdue %}
+<tr>
+    <td>{{forloop.counter}}</td>
+    <td>{{s.student_name}}</td>
+    <td>{{s.s_usn}}</td>
+    <td>{{s.days_overdue}}</td>
+    <td>{{s.fine}}</td>
+</tr>
+{% endfor %}
+
+{% endblock %}
